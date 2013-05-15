@@ -34,7 +34,7 @@ executable yell
     -threaded -O2
   other-modules:       
   build-depends:
-    base == 4.5.*,
+    base == 4.5.* || == 4.6.*,
     string-conversions,
     configurator,
     filepath,
