@@ -1,0 +1,28 @@
+-*- mode: text -*-
+
+0.2:
+
+  - add source comments?  haddock vs. executables?
+  - more practically useful patterns
+  - shorter sounds
+
+0.3:
+
+  - how do we switch between ghc and ghci with symlinks?  does both work?
+      make dedicated 'yell' PATH entry.
+      feed lots of symlinks there.
+      make mapping of symlink names to target executables configurable.
+      default rule: look up name in path, excluding yell entry in path.  (how does that work?)
+
+0.4:
+
+  - if target sound is a list of paths and/or contains wild cards, play any of the named sound files at random.
+    (or name one directory, and all files inside, recursively, will be played?  seems cleaner..)
+
+later:
+
+  - more complex parser rules (multi-line, parsec *or* regexp)
+  - extend to other environments.  (chicken scheme?  something
+    non-compilery?  tcpdump?  also make config language work with
+    arbitrary number of envs.)
+  - give all output lines of playcmd a meaningful prefix on stdout / stderr.

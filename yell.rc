@@ -1,0 +1,27 @@
+# regexps for matching ghc output
+rules =
+  [ ["parse error on input",
+     "185242__setuniman__abstract-0z78"]
+  , ["Not in scope: ",
+     "156198__lau7__friction-1-single"]
+  , ["The first argument of .* takes one argument,",
+     "185844__erokia__teleport-whoosh-elementary-sound-1"]
+  , ["Couldn't match expected type .* with actual type .*",
+     "185239__erokia__elementary-synth-16-2"]
+  , ["The equation\\(s\\) for .* have .* argument",
+     "185768__jobro__click-loop"]
+  , ["No instance for ",
+     "185768__jobro__click-loop"]
+  , ["Could not find module",
+     "185768__jobro__click-loop"]
+  ]
+
+# shell command line to run to play a sound file.
+play-cmd = "mplayer %s >/dev/null 2>/dev/null"
+
+# max number of sounds to play.  if there are more matches, all
+# subsequent matches will not trigger any yells.
+max-num-sounds = 3
+
+# executable that yell is supposed to wrap.
+exec = "/usr/bin/ghc"

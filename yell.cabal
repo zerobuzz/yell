@@ -1,0 +1,42 @@
+name:                yell
+version:             0.1
+synopsis:            Give command line tools an audible voice.
+description:         Yell wraps around any command line program and lets you specify a set of matching rules on the output by which to play audio files.
+license:             GPL-3
+license-file:        LICENSE
+author:              Matthias Fischmann
+maintainer:          mf@zerobuzz.net
+copyright:           zerobuzz UG (haftungsbeschränkt), 2013-2019
+category:            System
+build-type:          Simple
+cabal-version:       >=1.8
+
+-- on cabal and data files: http://neilmitchell.blogspot.de/2008/02/adding-data-files-using-cabal.html
+-- (there is also more info in the snaplet tutorial, but it's a little brief and may need updating.)
+
+extra-source-files:
+    LICENSE
+    TODO
+    sounds/README
+
+data-files:
+    sounds/156198__lau7__friction-1-single.ogg
+    sounds/185239__erokia__elementary-synth-16-2.ogg
+    sounds/185242__setuniman__abstract-0z78.ogg
+    sounds/185768__jobro__click-loop.ogg
+    sounds/185844__erokia__teleport-whoosh-elementary-sound-1.ogg
+    yell.rc
+
+executable yell
+  main-is:             
+    yell.hs
+  ghc-options:
+    -threaded -O2
+  other-modules:       
+  build-depends:
+    base == 4.5.*,
+    string-conversions,
+    configurator,
+    filepath,
+    process,
+    regex-pcre
