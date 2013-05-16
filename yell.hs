@@ -47,6 +47,11 @@ main = do
   return ()
 
 
+-- | data type for the configurator data.  i felt i had to introduce
+-- this, even if it is pretty bulky and boring, to put all the
+-- messages about configuration errors in one place, and make the rest
+-- of the code more concise and more robust.  i would like to know if
+-- there is a better solution that i missed?
 data YellConfig =
     YellConfig
       { yellConfigRules :: [(String, String)]
@@ -58,13 +63,12 @@ data YellConfig =
   deriving (Eq, Ord, Show)
 
 
+-- | 'YellConfig' constructor.
 loadYellConfig :: IO YellConfig
 loadYellConfig = do
   dataDir  <- getDataDir
   home     <- maybe "/" id . Prelude.lookup "HOME" <$> getEnvironment
   config   <- load $ map Optional [dataDir </> "yell.rc", home </> ".yell.rc"]
-
-  -- XXX there is probably a prettier way to do this?
 
   let g :: Value -> [(String, String)]
       g (List xs) = map f xs
