@@ -150,8 +150,7 @@ playSounds YellConfig{..} chan = getChanContents chan >>= mapM_ play . limit . c
       where
         match_ :: (String, String) -> Maybe String
         match_ (pattern, sound) = if line =~ pattern
-                                    then Just $ yellConfigSoundsDir </> sound <.> "ogg"
-                                              -- XXX get full file name (with suffix) from rc file.
+                                    then Just $ yellConfigSoundsDir </> sound
                                     else Nothing
 
     limit :: [String] -> [String]

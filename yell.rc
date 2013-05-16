@@ -1,19 +1,19 @@
 # regexps for matching ghc output
 rules =
   [ ["parse error on input",
-     "185242__setuniman__abstract-0z78"]
+     "185242__setuniman__abstract-0z78.ogg"]
   , ["Not in scope: ",
-     "156198__lau7__friction-1-single"]
+     "156198__lau7__friction-1-single.ogg"]
   , ["The first argument of .* takes one argument,",
-     "185844__erokia__teleport-whoosh-elementary-sound-1"]
+     "185844__erokia__teleport-whoosh-elementary-sound-1.ogg"]
   , ["Couldn't match expected type .* with actual type .*",
-     "185239__erokia__elementary-synth-16-2"]
+     "185239__erokia__elementary-synth-16-2.ogg"]
   , ["The equation\\(s\\) for .* have .* argument",
-     "185768__jobro__click-loop"]
+     "185768__jobro__click-loop.ogg"]
   , ["No instance for ",
-     "185768__jobro__click-loop"]
+     "185768__jobro__click-loop.ogg"]  # yes, the same file.  sorry, i got bored.  (:
   , ["Could not find module",
-     "185768__jobro__click-loop"]
+     "185768__jobro__click-loop.ogg"]
   ]
 
 # shell command line to run to play a sound file.
