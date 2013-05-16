@@ -26,3 +26,6 @@ later:
     non-compilery?  tcpdump?  also make config language work with
     arbitrary number of envs.)
   - give all output lines of playcmd a meaningful prefix on stdout / stderr.
+  - debug output (to log file?) containing the command lines for playing sounds and stdout/stderr of the process.
+
+

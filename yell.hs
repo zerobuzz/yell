@@ -20,6 +20,7 @@ import System.FilePath
 import System.IO
 import System.Process
 import Text.Printf
+import Text.Regex
 import Text.Regex.PCRE
 
 import Paths_yell
@@ -157,7 +158,16 @@ playSounds YellConfig{..} chan = getChanContents chan >>= mapM_ play . limit . c
     limit = take yellConfigMaxNumSounds
 
     play :: FilePath -> IO ()
-    play file = do
-      let escaped = show file  -- XXX escape properly.
-      ExitSuccess <- system $ printf yellConfigPlayCmd escaped
+    play soundFile = do
+      let subst :: String -> String -> String -> String
+          subst pattern replacement source = subRegex (makeRegex pattern) source replacement
+
+          (cmd:args) = map (subst "%s" soundFile) $ words yellConfigPlayCmd
+
+      (i, o, e, h) <- runInteractiveProcess cmd args Nothing Nothing
+      otid <- forkIO_ $ hGetContents o >> return ()
+      etid <- forkIO_ $ hGetContents e >> return ()
+      waitForChildren_ [otid, etid]
+      waitForProcess h
+
       return ()

@@ -35,8 +35,9 @@ executable yell
   other-modules:       
   build-depends:
     base == 4.5.* || == 4.6.*,
-    string-conversions,
     configurator,
     filepath,
     process,
-    regex-pcre
+    regex-compat,
+    regex-pcre,
+    string-conversions
