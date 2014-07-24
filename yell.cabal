@@ -25,7 +25,8 @@ data-files:
     sounds/185242__setuniman__abstract-0z78.ogg
     sounds/185768__jobro__click-loop.ogg
     sounds/185844__erokia__teleport-whoosh-elementary-sound-1.ogg
-    yell.rc
+    configs/yell.rc
+    configs/tsc.rc
 
 executable yell
   main-is:

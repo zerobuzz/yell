@@ -1,0 +1,24 @@
+# regexps for matching ghc output
+rules =
+  [ ["error TS2095: Could not find symbol .*",
+     "185242__setuniman__abstract-0z78.ogg"]
+  , ["error TS2011: Cannot convert '.*' to '.*'.",
+     "156198__lau7__friction-1-single.ogg"]
+  , ["error TS1001: Unexpected character ".".",
+     "185844__erokia__teleport-whoosh-elementary-sound-1.ogg"]
+  , ["error TS1008: Unexpected token; '.*' expected.",
+     "185239__erokia__elementary-synth-16-2.ogg"]
+  , [".*",
+     "185768__jobro__click-loop.ogg"]
+  ]
+
+# shell command line to run to play a sound file.
+play-cmd = "mplayer %s >/dev/null 2>/dev/null"
+
+# max number of sounds to play.  if there are more matches, all
+# subsequent matches will not trigger any yells.
+max-num-sounds = 3
+
+# executable that yell is supposed to wrap.
+exec = "/usr/bin/tsc"
+
