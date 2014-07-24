@@ -72,17 +72,17 @@ loadYellConfig = do
 
   let g :: Value -> [(String, String)]
       g (List xs) = map f xs
-      g x = error $ "rules is not a list: " ++ show x
+      g x = error $ "'rules' is not a list: " ++ show x
 
       f :: Value -> (String, String)
       f (List [String pattern, String soundfile]) = (cs pattern, cs soundfile)
-      f x = error $ "rules has malformed entry: " ++ show x
+      f x = error $ "'rules' has malformed entry: " ++ show x
 
   rules <- g <$> Conf.require config "rules"
 
   let h :: Value -> String
       h (String s) = cs s
-      h x = error $ "play-cmd must be a string: " ++ show x
+      h x = error $ "'play-cmd' must be a string: " ++ show x
 
   playcmd <- h <$> Conf.require config "play-cmd"
 
