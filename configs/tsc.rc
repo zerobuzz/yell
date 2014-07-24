@@ -4,7 +4,7 @@ rules =
      "185242__setuniman__abstract-0z78.ogg"]
   , ["error TS2011: Cannot convert '.*' to '.*'.",
      "156198__lau7__friction-1-single.ogg"]
-  , ["error TS1001: Unexpected character ".".",
+  , ["error TS1001: Unexpected character \".\".",
      "185844__erokia__teleport-whoosh-elementary-sound-1.ogg"]
   , ["error TS1008: Unexpected token; '.*' expected.",
      "185239__erokia__elementary-synth-16-2.ogg"]
