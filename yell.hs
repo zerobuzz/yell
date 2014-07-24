@@ -68,8 +68,11 @@ loadYellConfig :: IO YellConfig
 loadYellConfig = do
   progName <- getProgName
   dataDir  <- getDataDir
-  home     <- maybe "/" id . Prelude.lookup "HOME" <$> getEnvironment
-  config   <- load [Required $ dataDir </> progName <.> ".rc"]
+  homeDir  <- maybe "/" id . Prelude.lookup "HOME" <$> getEnvironment
+  config   <- load $ map Optional [ dataDir </> "configs" </> progName <.> "rc"
+                                  , homeDir </> ".yell" </> progName <.> "rc"
+                                  , homeDir </> ".yell" </> "configs" </> progName <.> "rc"
+                                  ]
 
   let g :: Value -> [(String, String)]
       g (List xs) = map f xs
