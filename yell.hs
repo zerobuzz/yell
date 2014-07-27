@@ -1,6 +1,7 @@
 {-# LANGUAGE OverloadedStrings    #-}
-{-# LANGUAGE ScopedTypeVariables  #-}
 {-# LANGUAGE RecordWildCards      #-}
+{-# LANGUAGE ScopedTypeVariables  #-}
+{-# LANGUAGE TupleSections        #-}
 
 {-# OPTIONS -fwarn-unused-imports #-}
 
@@ -17,6 +18,7 @@ import Data.Maybe
 import Data.String
 import Data.String.Conversions
 import Prelude hiding (catch)
+import System.Argv0
 import System.Directory
 import System.Environment
 import System.FilePath
@@ -27,6 +29,7 @@ import Text.Regex.PCRE
 import Text.Show.Pretty (ppShow)
 
 import qualified Data.CaseInsensitive as CI (mk)
+import qualified Filesystem.Path.CurrentOS as FS (encodeString)
 
 import Paths_yell
 
@@ -37,16 +40,16 @@ type ChildrenMV = MVar Children
 
 main :: IO ()
 main = do
-  (cmd_, args)
-      <- let f (h:t) = (h, t)
-             f [] = error $ "usage: yell <compiler command> [compiler args]"
-         in f <$> getArgs
+  progName <- getProgName
+  (cmd, args) <- if takeFileName progName == "yell"
+      then do
+          as <- getArgs
+          case as of
+              [] -> error "usage: yell <compiler command> [compiler args]"
+              (cmd : args) -> (,args) <$> executablePath cmd
+      else (,) <$> nextExecutablePath progName <*> getArgs
 
-  cmd <- let f (Just x) = x
-             f Nothing = error $ "command " ++ show cmd_ ++ " not found in path!"
-         in f <$> executablePath cmd_
-
-  yellConfig <- loadYellConfig cmd_
+  yellConfig <- loadYellConfig (takeFileName cmd)
   env <- getEnvironment
 
   let verbose :: Bool
@@ -72,12 +75,28 @@ main = do
 
 -- | If argument is an existing file, return that.  Otherwise, search
 -- $PATH.
-executablePath :: FilePath -> IO (Maybe FilePath)
-executablePath filepath = do
+executablePath :: FilePath -> IO FilePath
+executablePath filepath = canonicalizePath =<< do
     exists :: Bool <- doesFileExist filepath
     if exists
-        then return (Just filepath)
-        else listToMaybe <$> (getSearchPath >>= filterM doesFileExist . map (</> filepath))
+        then return filepath
+        else maybe (error $ "command " ++ show filepath ++ " not found in path!") id . listToMaybe
+               <$> (getSearchPath >>= filterM doesFileExist . map (</> filepath))
+
+
+-- | Call this function if progName is not 'yell', $PATH will be
+-- searched for an executable (symlink or file) that has the same name
+-- as progName.  If argv0 is an absolute path, the first candidate
+-- that is different from argv0 will be used; otherwise, the second
+-- candidate will be used (if argv0 is relative, it must have been
+-- looked up from the path).
+nextExecutablePath :: FilePath -> IO FilePath
+nextExecutablePath progName = canonicalizePath =<< do
+    argv0 :: FilePath <- FS.encodeString <$> getArgv0
+    options :: [FilePath] <- getSearchPath >>= filterM doesFileExist . map (</> progName)
+    return $ if isAbsolute argv0
+        then case filter (/= argv0) options of (x:_) -> x
+        else case options of (_:x:_) -> x
 
 
 data YellConfig =
