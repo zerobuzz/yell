@@ -136,23 +136,23 @@ pipe_ YellConfig{..} loud chan hi ho = f
     f = do
       eof <- hIsEOF hi
       if eof
-        then return ()
-        else do
-          l <- hGetLine hi
-          hPutStrLn ho l
-          hFlush ho
-          if loud
-            then do
-              writeChan chan (Just l) >> f
-            else do
-              f
+          then return ()
+          else do
+              l <- hGetLine hi
+              hPutStrLn ho l
+              hFlush ho
+              if loud
+                  then do
+                      writeChan chan (Just l) >> f
+                  else do
+                      f
 
 
 forkIO_ :: IO () -> IO (MVar ())
 forkIO_ computation = do
-  mvar <- newEmptyMVar
-  forkIO (computation `finally` (putMVar mvar ()))
-  return mvar
+    mvar <- newEmptyMVar
+    forkIO (computation `finally` (putMVar mvar ()))
+    return mvar
 
 
 waitForChildren_ :: Children -> IO ()
