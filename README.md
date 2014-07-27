@@ -3,7 +3,7 @@ yell
 
 Pass the command line you want to make loud as arguments to yell:
 
-yell ghc --make Main.hs
+    yell ghc --make Main.hs
 
 If you get any compiler errors, you will hopefully hear weird sounds.
 
