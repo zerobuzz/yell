@@ -1,5 +1,5 @@
 name:                yell
-version:             0.2.0
+version:             0.2.1
 synopsis:            Give command line tools an audible voice.
 description:         Yell wraps around any command line program and lets you specify a set of match rules on the output by which to play audio files.
 license:             GPL-3
