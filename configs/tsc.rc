@@ -18,7 +18,3 @@ play-cmd = "mplayer %s >/dev/null 2>/dev/null"
 # max number of sounds to play.  if there are more matches, all
 # subsequent matches will not trigger any yells.
 max-num-sounds = 3
-
-# executable that yell is supposed to wrap.
-exec = "/usr/bin/tsc"
-

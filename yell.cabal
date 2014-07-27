@@ -1,5 +1,5 @@
 name:                yell
-version:             0.1.1
+version:             0.2.0
 synopsis:            Give command line tools an audible voice.
 description:         Yell wraps around any command line program and lets you specify a set of match rules on the output by which to play audio files.
 license:             GPL-3
@@ -25,7 +25,7 @@ data-files:
     sounds/185242__setuniman__abstract-0z78.ogg
     sounds/185768__jobro__click-loop.ogg
     sounds/185844__erokia__teleport-whoosh-elementary-sound-1.ogg
-    configs/yell.rc
+    configs/ghc.rc
     configs/tsc.rc
 
 executable yell
@@ -36,8 +36,11 @@ executable yell
   other-modules:
   build-depends:
     base  >= 4.7.0.1 && < 4.8,
+    case-insensitive  >= 1.2.0.0 && < 1.3,
     configurator  >= 0.3.0.0 && < 0.4,
+    directory  >= 1.2.1.0 && < 1.3,
     filepath  >= 1.3.0.2 && < 1.4,
+    pretty-show  >= 1.6.8 && < 1.7,
     process  >= 1.2.0.0 && < 1.3,
     regex-compat  >= 0.95.1 && < 0.96,
     regex-pcre  >= 0.94.4 && < 0.95,
